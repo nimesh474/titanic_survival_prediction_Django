@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanic Survival</title>
+</head>
+<body>
+    
+    <form method="POST" action="{% url 'survival_prediction' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="pclass">P_Class[1,2,3]</label>
+            <input type="text" class="form-control" id="pclass", name="pclass" aria-describedby="emailHelp">
+        </div>
+        
+        <div class="form-group">
+            <p>Select the Gender:</p>
+            <label for="gender-male">
+              <input type="radio" class="form-control" id="gender-male", name="gender" value="male">Male[0]
+            </label>
+            <br>
+            <label for="gender-female">
+              <input type="radio" class="form-control" id="gender-female", name="gender" value="female">Female[1]
+            </label>
+        </div>
+
+        <br><br>
+
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="text" class="form-control" id="age", name="age" aria-describedby="emailHelp">
+        </div>
+        
+        <div class="form-group">
+            <p>Select the Embarked Location:</p>
+            <label for="embarked-c">
+            <input type="radio" class="form-control" id="embarked-c", name="embarked" value="C">C[0]
+            </label>
+            <br>
+            <label for="embarked-q">
+            <input type="radio" class="form-control" id="embarked-q", name="embarked" value="Q">Q[1]
+            </label>
+            <br>
+            <label for="embarked-s">
+            <input type="radio" class="form-control" id="embarked-s", name="embarked" value="S">S[2]
+            </label>
+            <br>
+        </div>
+
+        <br><br>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <p>Data</p>
+
+    {% if pclass is None %}
+        <h4>Pclass: None</h4>
+    {% else %}
+        <h4>Pclass: {{pclass}}</h4>
+    {% endif %}
+
+    {% if gender is None %}
+        <h4>Sex: None</h4>
+    {% elif gender == 0 %}
+        <h4>Sex: Male</h4>
+    {% else %}
+        <h4>Sex: Female</h4>
+    {% endif %}
+
+    {% if age is None %}
+        <h4>Age: None</h4>
+    {% else %}
+        <h4>Age: {{age}}</h4>
+    {% endif %}
+
+    {% if embarked is None %}
+        <h4>Embarked: None</h4>
+    {% elif embarked == 0 %}
+        <h4>Embarked: C</h4>
+    {% elif embarked == 1 %}
+        <h4>Embarked: Q</h4>
+    {% else %}
+        <h4>Embarked: S </h4>
+    {% endif %}
+
+    
+    {% if prediction is None %}
+        <h4>Prediction: Data is not Passed</h4>
+    {% elif prediction == 0 %}
+        <h4>Prediction: Not Survived</h4>
+    {% else %}
+        <h4>Prediction: Survived</h4>
+    {% endif%}
+</body>
+</html>
